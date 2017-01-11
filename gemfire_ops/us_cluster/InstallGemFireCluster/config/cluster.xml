@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cache
+	xsi:schemaLocation="http://schema.pivotal.io/gemfire/cache http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd"
+	lock-lease="120" lock-timeout="60" search-timeout="300" is-server="false"
+	copy-on-read="false" version="8.1" xmlns="http://schema.pivotal.io/gemfire/cache"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- parallel sender for all account related data -->
+	<gateway-sender id="accountSender"
+		remote-distributed-system-id="${REMOTE_DISTRIBUTED_SYSTEM_ID}" batch-size="100" batch-time-interval="1000"
+		parallel="true" enable-persistence="true" disk-store-name="accountSenderDiskStore"
+		enable-batch-conflation="true" maximum-queue-memory="100"></gateway-sender>
+
+	<!-- serial sender for symbol related data -->
+	<gateway-sender id="quoteSender"
+		remote-distributed-system-id="${REMOTE_DISTRIBUTED_SYSTEM_ID}" batch-size="100" batch-time-interval="1000"
+		parallel="false" order-policy="key" enable-persistence="true"
+		disk-store-name="quoteSenderDiskStore" enable-batch-conflation="true"
+		maximum-queue-memory="100"></gateway-sender>
+
+	<gateway-receiver start-port="${GATEWAY_RECEIVER_PORT}" end-port="${GATEWAY_RECEIVER_PORT}" />
+
+	<disk-store name="quoteSenderDiskStore" max-oplog-size="500">
+		<disk-dirs>
+			<disk-dir>data/quoteSender</disk-dir>
+		</disk-dirs>
+	</disk-store>
+
+	<disk-store name="accountSenderDiskStore" max-oplog-size="500">
+		<disk-dirs>
+			<disk-dir>data/accountSender</disk-dir>
+		</disk-dirs>
+	</disk-store>
+
+	<disk-store name="pdxDiskStore" max-oplog-size="500">
+		<disk-dirs>
+			<disk-dir>data/pdx</disk-dir>
+		</disk-dirs>
+	</disk-store>
+
+	<disk-store name="portfolioDiskStore" max-oplog-size="500">
+		<disk-dirs>
+			<disk-dir>data/portfolio</disk-dir>
+		</disk-dirs>
+	</disk-store>
+
+	<disk-store name="accountDiskStore" max-oplog-size="500">
+		<disk-dirs>
+			<disk-dir>data/account</disk-dir>
+		</disk-dirs>
+	</disk-store>
+
+	<disk-store name="quoteDiskStore" max-oplog-size="500">
+		<disk-dirs>
+			<disk-dir>data/quote</disk-dir>
+		</disk-dirs>
+	</disk-store>
+
+	<pdx persistent="true" read-serialized="true" disk-store-name="pdxDiskStore"></pdx>
+
+	<region name="Quote">
+		<region-attributes refid="REPLICATE_PERSISTENT_OVERFLOW"
+			disk-store-name="quoteDiskStore" />
+	</region>
+
+	<region name="Account">
+		<region-attributes refid="PARTITION_REDUNDANT_PERSISTENT_OVERFLOW"
+			disk-store-name="accountDiskStore">
+			<partition-attributes redundant-copies="1"
+				recovery-delay="0" startup-recovery-delay="0" />
+		</region-attributes>
+	</region>
+
+	<region name="Portfolio">
+		<region-attributes refid="PARTITION_REDUNDANT_PERSISTENT_OVERFLOW"
+			disk-store-name="portfolioDiskStore">
+			<partition-attributes redundant-copies="1"
+				recovery-delay="0" startup-recovery-delay="0" colocated-with="Account" />
+		</region-attributes>
+	</region>
+
+	<function-service />
+
+	<resource-manager critical-heap-percentage="95"
+		eviction-heap-percentage="90" />
+
+</cache>

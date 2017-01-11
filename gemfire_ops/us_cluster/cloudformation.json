@@ -1,0 +1,126 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "server101" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+         "AvailabilityZone" : "us-east-1a",
+         "EbsOptimized" : true,
+         "ImageId" : "ami-6869aa05",
+         "InstanceInitiatedShutdownBehavior" : "stop",
+         "InstanceType" : "m4.2xlarge",
+         "KeyName" : "gemfire-keypair",
+         "PrivateIpAddress" : "192.168.1.101",
+         "SecurityGroupIds" : [ "sg-b9d22fc5"],
+         "SubnetId" : "subnet-64dbfc2d",
+         "Tags" : [
+            {
+              "Key": "Name",
+              "Value" : "PCFGemFireTraderUSServerserver101"
+            },
+            {
+              "Key": "Environment",
+              "Value" : "PCFGemFireTraderUS"
+            }
+          ],
+         "Volumes" : [
+          {
+            "Device" : "/dev/xvdf",
+            "VolumeId" : "vol-0d3d25465fab6f0b4"
+          }
+,          {
+            "Device" : "/dev/xvdg",
+            "VolumeId" : "vol-0c3bf58e30083b1d3"
+          }
+,          {
+            "Device" : "/dev/xvdh",
+            "VolumeId" : "vol-0a06e6113719533bb"
+          }
+         ] ,
+         "BlockDeviceMappings" : [
+         ]
+      }
+    }
+,     "server102" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+         "AvailabilityZone" : "us-east-1a",
+         "EbsOptimized" : true,
+         "ImageId" : "ami-6869aa05",
+         "InstanceInitiatedShutdownBehavior" : "stop",
+         "InstanceType" : "m4.2xlarge",
+         "KeyName" : "gemfire-keypair",
+         "PrivateIpAddress" : "192.168.1.102",
+         "SecurityGroupIds" : [ "sg-b9d22fc5"],
+         "SubnetId" : "subnet-64dbfc2d",
+         "Tags" : [
+            {
+              "Key": "Name",
+              "Value" : "PCFGemFireTraderUSServerserver102"
+            },
+            {
+              "Key": "Environment",
+              "Value" : "PCFGemFireTraderUS"
+            }
+          ],
+         "Volumes" : [
+          {
+            "Device" : "/dev/xvdf",
+            "VolumeId" : "vol-07c0b8f2de4c792d4"
+          }
+,          {
+            "Device" : "/dev/xvdg",
+            "VolumeId" : "vol-0a8e63a931f63d032"
+          }
+,          {
+            "Device" : "/dev/xvdh",
+            "VolumeId" : "vol-061d256b014221453"
+          }
+         ] ,
+         "BlockDeviceMappings" : [
+         ]
+      }
+    }
+,     "server103" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+         "AvailabilityZone" : "us-east-1a",
+         "EbsOptimized" : true,
+         "ImageId" : "ami-6869aa05",
+         "InstanceInitiatedShutdownBehavior" : "stop",
+         "InstanceType" : "m4.2xlarge",
+         "KeyName" : "gemfire-keypair",
+         "PrivateIpAddress" : "192.168.1.103",
+         "SecurityGroupIds" : [ "sg-b9d22fc5"],
+         "SubnetId" : "subnet-64dbfc2d",
+         "Tags" : [
+            {
+              "Key": "Name",
+              "Value" : "PCFGemFireTraderUSServerserver103"
+            },
+            {
+              "Key": "Environment",
+              "Value" : "PCFGemFireTraderUS"
+            }
+          ],
+         "Volumes" : [
+          {
+            "Device" : "/dev/xvdf",
+            "VolumeId" : "vol-0e350d57aa04355ba"
+          }
+,          {
+            "Device" : "/dev/xvdg",
+            "VolumeId" : "vol-0c3951412bb805f30"
+          }
+,          {
+            "Device" : "/dev/xvdh",
+            "VolumeId" : "vol-0858e86cbd2eff915"
+          }
+         ] ,
+         "BlockDeviceMappings" : [
+         ]
+      }
+    }
+  },
+  "Description": "PCFGemFireTraderUS Stack"
+}
