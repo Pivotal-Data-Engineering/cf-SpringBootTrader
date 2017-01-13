@@ -3,7 +3,7 @@
     "RegionName" : "us-east-1",
     "AvailabilityZone" : "us-east-1a",
     "KeyPair" : "gemfire-keypair",
-    "SSHKeyPath" : "/users/rmay/Downloads/gemfire-keypair.pem",
+    "SSHKeyPath" : "../id_rsa.pem",
     "SecurityGroupId" : "{{SecurityGroupId}}",
     "SubnetId" : "{{SubnetId}}",
     "Servers" : [
@@ -48,15 +48,12 @@
                     "Name": "AddHostEntries"
                 },
                 {
-                    "Name": "YumInstallPackages",
-                    "Packages": ["gcc", "python-devel","python-pip"]
+                    "Name": "AptInstallPackages",
+                    "Packages": ["gcc","python-pip"]
                 },
                 {
                     "Name": "PipInstallPackages",
                     "Packages": ["netifaces"]
-                },
-                {
-                    "Name": "MountStorage"
                 },
                 {
                     "Name" : "CopyArchives",
@@ -82,7 +79,7 @@
                 },
                 {
                     "Name" : "ConfigureProfile",
-                    "Owner" : "ec2-user"
+                    "Owner" : "rmay"
                 }
                 , {
                     "Name" : "InstallGemFireCluster",

@@ -2,12 +2,12 @@
     "global-properties":{
         "gemfire": "/runtime/gemfire",
         "java-home" : "/runtime/java",
-        "locators" : "192.168.1.101[10000],192.168.1.102[10000]",
+        "locators" : "gem1[10000],gem2[10000]",
         "cluster-home" : "/runtime/gem_cluster_1",
         "distributed-system-id": 1
     },
    "locator-properties" : {
-        "remote-locators" : "192.168.1.201[10000],192.168.1.202[10000]",
+        "remote-locators" : "gem4[10000],gem5[10000]",
         "port" : 10000,
         "jmx-manager-port" : 11099,
         "http-service-port" : 17070,
@@ -44,33 +44,30 @@
     {% set firstOne = true %}
     {% for Server in Servers  %}
     {% for Installation in Server.Installations if Installation.Name == 'InstallGemFireCluster' %}
-        "ip-192-168-1-{{ Server.ServerNumber }}" : {
+        "gem{{ Server.ServerNumber - 101 }}" : {
             "host-properties" :  {
              },
              "processes" : {
-                {% if Server.ServerNumber == 101 or Server.ServerNumber == 102 %}
+                {% if Server.ServerNumber == 102 or Server.ServerNumber == 103 %}
                 "locator{{ Server.ServerNumber }}" : {
                     "type" : "locator",
-                    "bind-address" : "192.168.1.{{ Server.ServerNumber }}",
-                    "jmx-manager-hostname-for-clients" : "{{ Server.PublicIpAddress }}",
-                    "hostname-for-clients" : "{{ Server.PublicIpAddress }}"
-                    {% if Server.ServerNumber == 101 %}
+                    "bind-address" : "10.192.138.{{ Server.ServerNumber }}"
+                    {% if Server.ServerNumber == 102 %}
                     , "jmx-manager-start" : "true"
                     {% endif %}
                  },
                 {% endif %}
                 "server{{ Server.ServerNumber }}" : {
                     "type" : "datanode",
-                    "server-bind-address" : "192.168.1.{{ Server.ServerNumber }}",
-                    "hostname-for-clients" : "{{ Server.PublicIpAddress }}"
-                    {% if Server.ServerNumber == 101 %}
+                    "server-bind-address" : "10.192.138.{{ Server.ServerNumber }}"
+                    {% if Server.ServerNumber == 102 %}
                     , "http-service-port": 18080,
                     "start-dev-rest-api" : "true"
                     {% endif %}
                  }
              },
              "ssh" : {
-                "host" : "{{ Server.PublicIpAddress }}",
+                "host" : "10.192.138.{{ Server.ServerNumber }}",
                 "user" : "{{ Server.SSHUser }}",
                 "key-file" : "{{ SSHKeyPath }}"
              }

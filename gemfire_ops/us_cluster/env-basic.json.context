@@ -4,15 +4,15 @@
   "SecurityGroupId"  : "sg-b9d22fc5",
    "Servers" : [
       {
-         "Number" : 101,
-         "Type" : "DataNode"
-      },
-      {
          "Number" : 102,
          "Type" : "DataNode"
       },
       {
          "Number" : 103,
+         "Type" : "DataNode"
+      },
+      {
+         "Number" : 104,
          "Type" : "DataNode"
       }
    ]
