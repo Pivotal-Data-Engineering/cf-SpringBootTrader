@@ -1,16 +1,16 @@
 {
     "global-properties":{
-        "gemfire": "/runtime/gemfire",
-        "java-home" : "/runtime/java",
-        "locators" : "192.168.1.201[20000],192.168.1.202[20000]",
-        "cluster-home" : "/runtime/gem_cluster_1",
+        "gemfire": "/home/rmay/runtime/gemfire",
+        "java-home" : "/home/rmay/runtime/java",
+        "locators" : "gem4[10000],gem5[10000]",
+        "cluster-home" : "/home/rmay/runtime/gem_cluster_1",
         "distributed-system-id": 2
     },
    "locator-properties" : {
-        "remote-locators" : "192.168.1.101[10000],192.168.1.102[10000]",
-        "port" : 20000,
-        "jmx-manager-port" : 21099,
-        "http-service-port" : 27070,
+        "remote-locators" : "gem1[10000],gem2[10000]",
+        "port" : 10000,
+        "jmx-manager-port" : 11099,
+        "http-service-port" : 8080,
         "jmx-manager" : "true",
         "log-level" : "config",
         "statistic-sampling-enabled" : "true",
@@ -26,82 +26,75 @@
         "cache-xml-file" : "../config/cluster.xml",
         "conserve-sockets" : false,
         "log-level" : "config",
-        "membership-port-range" : "20901-20999",
+        "membership-port-range" : "10901-10999",
         "statistic-sampling-enabled" : "true",
         "statistic-archive-file" : "datanode.gfs",
         "log-file-size-limit" : "10",
         "log-disk-space-limit" : "100",
         "archive-file-size-limit" : "10",
         "archive-disk-space-limit" : "100",
-        "tcp-port" : 20001,
-        "server-port" : 20100,
-        "GATEWAY_RECEIVER_PORT" : 25000,
+        "tcp-port" : 10001,
+        "server-port" : 10100,
+        "GATEWAY_RECEIVER_PORT" : 15000,
         "REMOTE_DISTRIBUTED_SYSTEM_ID" : 1,
         "enable-network-partition-detection" : "true",
-        "jvm-options" : ["-Xmx24g","-Xms24g","-Xmn3g", "-XX:+UseConcMarkSweepGC", "-XX:+UseParNewGC", "-XX:CMSInitiatingOccupancyFraction=75"]
+        "jvm-options" : ["-Xmx10g","-Xms10g","-Xmn1g", "-XX:+UseConcMarkSweepGC", "-XX:+UseParNewGC", "-XX:CMSInitiatingOccupancyFraction=85"]
     },
     "hosts": {
-        "ip-192-168-1-201" : {
+        "gem4" : {
             "host-properties" :  {
              },
              "processes" : {
-                "locator201" : {
+                "locator105" : {
                     "type" : "locator",
-                    "bind-address" : "192.168.1.201",
-                    "jmx-manager-hostname-for-clients" : "52.90.55.182",
-                    "hostname-for-clients" : "52.90.55.182"
+                    "bind-address" : "10.193.138.105"
                     , "jmx-manager-start" : "true"
                  },
-                "server201" : {
+                "server105" : {
                     "type" : "datanode",
-                    "server-bind-address" : "192.168.1.201",
-                    "hostname-for-clients" : "52.90.55.182"
-                    , "http-service-port": 18080,
+                    "server-bind-address" : "10.193.138.105"
+                 }
+             },
+             "ssh" : {
+                "host" : "10.193.138.105",
+                "user" : "rmay",
+                "key-file" : "/home/rmay/gemfire_ops/id_rsa.pem"
+             }
+        },
+        "gem5" : {
+            "host-properties" :  {
+             },
+             "processes" : {
+                "locator106" : {
+                    "type" : "locator",
+                    "bind-address" : "10.193.138.106"
+                 },
+                "server106" : {
+                    "type" : "datanode",
+                    "server-bind-address" : "10.193.138.106"
+                 }
+             },
+             "ssh" : {
+                "host" : "10.193.138.106",
+                "user" : "rmay",
+                "key-file" : "/home/rmay/gemfire_ops/id_rsa.pem"
+             }
+        },
+        "gem6" : {
+            "host-properties" :  {
+             },
+             "processes" : {
+                "server107" : {
+                    "type" : "datanode",
+                    "server-bind-address" : "10.193.138.107"
+                    , "http-service-port": 8080,
                     "start-dev-rest-api" : "true"
                  }
              },
              "ssh" : {
-                "host" : "52.90.55.182",
-                "user" : "ec2-user",
-                "key-file" : "/users/rmay/Downloads/gemfire-keypair.pem"
-             }
-        },
-        "ip-192-168-1-202" : {
-            "host-properties" :  {
-             },
-             "processes" : {
-                "locator202" : {
-                    "type" : "locator",
-                    "bind-address" : "192.168.1.202",
-                    "jmx-manager-hostname-for-clients" : "54.164.157.199",
-                    "hostname-for-clients" : "54.164.157.199"
-                 },
-                "server202" : {
-                    "type" : "datanode",
-                    "server-bind-address" : "192.168.1.202",
-                    "hostname-for-clients" : "54.164.157.199"
-                 }
-             },
-             "ssh" : {
-                "host" : "54.164.157.199",
-                "user" : "ec2-user",
-                "key-file" : "/users/rmay/Downloads/gemfire-keypair.pem"
-             }
-        },
-        "ip-192-168-1-203" : {
-            "host-properties" :  {
-             },
-             "processes" : {
-                "server203" : {
-                    "type" : "datanode",
-                    "server-bind-address" : "192.168.1.203",
-                    "hostname-for-clients" : "52.91.142.206"
-                 }
-             },
-             "ssh" : {
-                "host" : "52.91.142.206",
-                "user" : "ec2-user",
-                "key-file" : "/users/rmay/Downloads/gemfire-keypair.pem"
+                "host" : "10.193.138.107",
+                "user" : "rmay",
+                "key-file" : "/home/rmay/gemfire_ops/id_rsa.pem"
              }
         },
         "dummy" : {

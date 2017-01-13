@@ -1,18 +1,16 @@
 {
   "EnvironmentName" : "PCFGemFireTraderEU",
-  "SubnetId" : "subnet-64dbfc2d",
-  "SecurityGroupId"  : "sg-b9d22fc5",
    "Servers" : [
       {
-         "Number" : 201,
+         "Number" : 105,
          "Type" : "DataNode"
       },
       {
-         "Number" : 202,
+         "Number" : 106,
          "Type" : "DataNode"
       },
       {
-         "Number" : 203,
+         "Number" : 107,
          "Type" : "DataNode"
       }
    ]
