@@ -1,16 +1,16 @@
 {
     "global-properties":{
-        "gemfire": "/runtime/gemfire",
-        "java-home" : "/runtime/java",
-        "locators" : "192.168.1.201[10000],192.168.1.202[10000]",
-        "cluster-home" : "/runtime/gem_cluster_1",
+        "gemfire": "/home/rmay/runtime/gemfire",
+        "java-home" : "/home/rmay/runtime/java",
+        "locators" : "gem4[10000],gem5[10000]",
+        "cluster-home" : "/home/rmay/runtime/gem_cluster_1",
         "distributed-system-id": 2
     },
    "locator-properties" : {
-        "remote-locators" : "192.168.1.101[10000],192.168.1.102[10000]",
+        "remote-locators" : "gem1[10000],gem2[10000]",
         "port" : 10000,
         "jmx-manager-port" : 11099,
-        "http-service-port" : 17070,
+        "http-service-port" : 8080,
         "jmx-manager" : "true",
         "log-level" : "config",
         "statistic-sampling-enabled" : "true",
@@ -33,44 +33,41 @@
         "log-disk-space-limit" : "100",
         "archive-file-size-limit" : "10",
         "archive-disk-space-limit" : "100",
-        "tcp-port" : 20001,
-        "server-port" : 20100,
-        "GATEWAY_RECEIVER_PORT" : 25000,
+        "tcp-port" : 10001,
+        "server-port" : 10100,
+        "GATEWAY_RECEIVER_PORT" : 15000,
         "REMOTE_DISTRIBUTED_SYSTEM_ID" : 1,
         "enable-network-partition-detection" : "true",
-        "jvm-options" : ["-Xmx24g","-Xms24g","-Xmn3g", "-XX:+UseConcMarkSweepGC", "-XX:+UseParNewGC", "-XX:CMSInitiatingOccupancyFraction=75"]
+        "jvm-options" : ["-Xmx10g","-Xms10g","-Xmn1g", "-XX:+UseConcMarkSweepGC", "-XX:+UseParNewGC", "-XX:CMSInitiatingOccupancyFraction=85"]
     },
     "hosts": {
     {% set firstOne = true %}
     {% for Server in Servers  %}
     {% for Installation in Server.Installations if Installation.Name == 'InstallGemFireCluster' %}
-        "ip-192-168-1-{{ Server.ServerNumber }}" : {
+        "gem{{ Server.ServerNumber - 101 }}" : {
             "host-properties" :  {
              },
              "processes" : {
-                {% if Server.ServerNumber == 201 or Server.ServerNumber == 202 %}
+                {% if Server.ServerNumber == 105 or Server.ServerNumber == 106 %}
                 "locator{{ Server.ServerNumber }}" : {
                     "type" : "locator",
-                    "bind-address" : "192.168.1.{{ Server.ServerNumber }}",
-                    "jmx-manager-hostname-for-clients" : "{{ Server.PublicIpAddress }}",
-                    "hostname-for-clients" : "{{ Server.PublicIpAddress }}"
-                    {% if Server.ServerNumber == 201 %}
+                    "bind-address" : "10.193.138.{{ Server.ServerNumber }}"
+                    {% if Server.ServerNumber == 105 %}
                     , "jmx-manager-start" : "true"
                     {% endif %}
                  },
                 {% endif %}
                 "server{{ Server.ServerNumber }}" : {
                     "type" : "datanode",
-                    "server-bind-address" : "192.168.1.{{ Server.ServerNumber }}",
-                    "hostname-for-clients" : "{{ Server.PublicIpAddress }}"
-                    {% if Server.ServerNumber == 201 %}
-                    , "http-service-port": 18080,
+                    "server-bind-address" : "10.193.138.{{ Server.ServerNumber }}"
+                    {% if Server.ServerNumber == 107 %}
+                    , "http-service-port": 8080,
                     "start-dev-rest-api" : "true"
                     {% endif %}
                  }
              },
              "ssh" : {
-                "host" : "{{ Server.PublicIpAddress }}",
+                "host" : "10.193.138.{{ Server.ServerNumber }}",
                 "user" : "{{ Server.SSHUser }}",
                 "key-file" : "{{ SSHKeyPath }}"
              }
