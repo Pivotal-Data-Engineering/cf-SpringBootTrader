@@ -27,6 +27,7 @@ repositories {
 	mavenCentral()
 }
 apply plugin: 'jacoco'
+apply plugin: 'java'
 
 subprojects {
   apply plugin: 'java'
@@ -62,6 +63,6 @@ task codeCoverageReport(type: JacocoReport) {
 // always run the tests before generating the report
 codeCoverageReport.dependsOn { subprojects*.test }
 //run full report after test
-//test.finalizedBy(codeCoverageReport)
+test.finalizedBy(codeCoverageReport)
 
 task wrapper(type: Wrapper) { gradleVersion = '2.12' }

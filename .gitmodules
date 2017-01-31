@@ -1,12 +1,12 @@
 [submodule "quotes-service"]
 	path = quotes-service
-	url = https://github.com/pivotal-bank/quotes-service.git
+	url = https://github.com/Pivotal-Data-Engineering/pivotal-bank-quotes-service.git
 [submodule "accounts-service"]
 	path = accounts-service
-	url = https://github.com/pivotal-bank/accounts-service.git
+	url = https://github.com/Pivotal-Data-Engineering/pivotal-bank-accounts-service.git
 [submodule "portfolio-service"]
 	path = portfolio-service
-	url = https://github.com/pivotal-bank/portfolio-service.git
+	url = https://github.com/Pivotal-Data-Engineering/pivotal-bank-portfolio-service.git
 [submodule "web-ui"]
 	path = web-ui
-	url = https://github.com/pivotal-bank/web-ui.git
+	url = https://github.com/Pivotal-Data-Engineering/pivotal-bank-web-ui.git
